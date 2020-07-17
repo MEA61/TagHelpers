@@ -10,20 +10,27 @@ namespace TagHelpers.Controllers
 {
     public class HomeController : Controller
     {
+        private IProductRepository productRepository;
+
+        public HomeController(IProductRepository _productRepository)
+        {
+            productRepository = _productRepository;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(productRepository.Products);
         }
-
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult Create(Product entity)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            productRepository.AddProduct(entity);
+            return RedirectToAction("Index");
         }
     }
 }

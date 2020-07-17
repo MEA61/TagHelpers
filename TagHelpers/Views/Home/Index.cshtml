@@ -1,8 +1,52 @@
-﻿@{
+﻿@model IEnumerable<Product>
+@{
     ViewData["Title"] = "Home Page";
+    List<string> liste = new List<string>() { "Telefon ", "Tablet", "Bilgisayar" };
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="m-1 p-1 bg-primary">
+    <div class="row text-white">
+        <div class="col-7">
+            <h4>Products</h4>
+        </div>
+        <div class="col-5 text-right">
+            <!--  Components  -->
+        </div>
+    </div>
+</div>
+
+<div class="m-1 p-1">
+    <div class="row">
+        <div class="col-3">
+            <ul items="@liste"></ul>
+        </div>
+        <div class="col-9">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th>@item.ProductId</th>
+                            <td>@item.ProductName</td>
+                            <td>@item.Price</td>
+                            <td></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <a asp-action="Create" asp-controller="Home" class="btn btn-primary">Create New One</a>
+            <formbutton type="submit" bg-color="danger"></formbutton>
+            <formbutton type="reset"></formbutton>
+        </div>
+    </div>
 </div>
